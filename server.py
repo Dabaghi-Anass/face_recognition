@@ -1,12 +1,17 @@
 import os
+import io
 import json
+import uuid
 import face_recognition
-from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import FileResponse
+
+from fastapi import FastAPI, UploadFile, File, Depends, Query, Header
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+
+
 from utils import find_matches
-import uuid
+
 
 app = FastAPI()
 
@@ -17,6 +22,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 embeddings_map = {}
 locations_map = {}
 IMAGES_DIR = "images"
@@ -42,6 +48,7 @@ def load_locations():
 def startup_event():
     load_embeddings()
     load_locations()
+    os.makedirs(IMAGES_DIR, exist_ok=True)
 
 
 @app.post("/embed")
@@ -79,6 +86,13 @@ async def download_image(file_name: str):
       
     return FileResponse(file_path, filename=file_name)
   return {"error": "File not found"}
+
+
+@app.get("/reload")
+async def reload():
+    load_embeddings()
+    load_locations()
+    return {"message", "db reloaded succefully"}
 
 
 @app.post("/similar")

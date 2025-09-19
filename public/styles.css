@@ -12,10 +12,13 @@ body {
 }
 .header-container {
 	margin-bottom: 2rem;
+	padding-inline: 2rem;
+	background: rgb(255, 255, 255);
 }
 .header {
 	font-size: 2rem;
 	text-align: center;
+	width: 100%;
 }
 .container {
 	width: 100%;
@@ -197,12 +200,34 @@ body {
 	border: none;
 	border-radius: 0.5rem;
 	transition: background 300ms;
+	cursor: pointer;
 }
 .btn:hover {
-	background: orange;
+	opacity: 0.8;
+}
+.btn.btn-login:hover {
+	opacity: 0.7;
+}
+#userimage {
+	border-radius: 50%;
+}
+#username {
+	font-weight: bold;
+}
+.btn.btn-login {
+	background: white;
+	border: 2px solid rgb(255, 0, 85);
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+	color: black;
+}
+.btn.btn-login img {
+	width: 1rem;
+	height: 1rem;
 }
 .btn:active {
-	background: orange;
+	opacity: 0.8;
 	border: 2px solid orangered;
 }
 .btn:disabled {
@@ -224,11 +249,11 @@ body {
 	}
 	.header {
 		text-align: center;
-		margin: auto;
-		background: orangered;
-		color: white;
+		margin: 0 auto;
+		color: orangered;
 		padding-block: 1rem;
 		font-size: 3rem;
 		font-weight: bold;
+		width: 100%;
 	}
 }
