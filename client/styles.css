@@ -70,6 +70,9 @@ body {
 	align-items: center;
 	width: 100%;
 }
+.hide_rectangles {
+	text-transform: capitalize;
+}
 .hide_rectangles input:hover {
 	outline-color: #00ee00;
 }
