@@ -1,18 +1,26 @@
-FROM python:3.12-slim
+FROM python:3.12
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt update && apt install -y --no-install-recommends \
+    build-essential \
     cmake \
+    libopenblas-dev \
+    liblapack-dev \
+    libx11-dev \
+    libgtk-3-dev \
+    wget \
+    unzip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir cmake
-RUN pip install --no-cache-dir dlib==19.24.0  # precompiled wheel
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install cmake
+RUN pip install -r requirements.txt
 
 COPY . .
 
