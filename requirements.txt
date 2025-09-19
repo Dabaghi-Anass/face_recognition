@@ -1,5 +1,4 @@
-cmake
-dlib==19.24.0
+./dlib-20.0.0-cp312-cp312-linux_x86_64.whl
 git+https://github.com/ageitgey/face_recognition_models
 face_recognition
 fastapi
