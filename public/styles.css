@@ -12,13 +12,16 @@ body {
 }
 .header-container {
   margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 1rem;
+  gap: 1rem;
   padding-inline: 2rem;
   background: rgb(255, 255, 255);
 }
 .header {
   font-size: 2rem;
-  text-align: center;
-  width: 100%;
 }
 .container {
   width: 100%;
@@ -248,12 +251,10 @@ body {
     grid-template-columns: repeat(4, 1fr);
   }
   .header {
-    text-align: center;
     margin: 0 auto;
     color: orangered;
     padding-block: 1rem;
     font-size: 3rem;
     font-weight: bold;
-    width: 100%;
   }
 }
