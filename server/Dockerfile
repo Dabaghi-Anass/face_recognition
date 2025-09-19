@@ -28,7 +28,7 @@ COPY . .
 
 RUN mkdir -p /app/images
 
-RUN python preprocess_images.py
+RUN python preprocessing.py
 
 EXPOSE 8080
 
