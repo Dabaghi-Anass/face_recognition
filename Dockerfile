@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 COPY requirements.txt .
-RUN python setup.py install -- -j1
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir cmake
 RUN pip install --no-cache-dir dlib==19.24.0  # precompiled wheel
