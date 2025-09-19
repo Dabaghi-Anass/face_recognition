@@ -11,9 +11,7 @@ body {
 	font-family: Helvetica, sans-serif;
 }
 .header-container {
-	background: rgb(255, 255, 255);
-	padding: 1rem;
-	margin-block: 1rem;
+	margin-bottom: 2rem;
 }
 .header {
 	font-size: 2rem;
@@ -23,7 +21,7 @@ body {
 	width: 100%;
 	max-width: 1800px;
 	margin: 0 auto;
-	padding: 0 1rem;
+	padding: 0 2rem;
 }
 .images_container {
 	display: flex;
@@ -178,7 +176,7 @@ body {
 
 .image-preview {
 	display: block;
-	height: 250px;
+	height: 150px;
 	aspect-ratio: 1;
 	border-radius: 1rem;
 }
@@ -208,6 +206,15 @@ body {
 	opacity: 0.7;
 	pointer-events: none;
 }
+#loading {
+	position: absolute;
+	aspect-ratio: 1;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 100;
+	width: 400px;
+}
 @media screen and (min-width: 900px) {
 	.images_container {
 		grid-template-columns: repeat(4, 1fr);
@@ -218,7 +225,7 @@ body {
 		background: orangered;
 		color: white;
 		padding-block: 1rem;
-		font-size: 5rem;
+		font-size: 3rem;
 		font-weight: bold;
 	}
 }

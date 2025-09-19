@@ -1,6 +1,7 @@
 const imageUpload = document.getElementById("image-upload");
 const submitBtn = document.getElementById("submitBtn");
 const hideInput = document.getElementById("hide");
+const loaddingSpinner = document.getElementById("loading");
 const result_length = document.getElementById("result_count");
 const images_container = document.querySelector(".images_container");
 const resultSummary = document.querySelector(".result_summary");
@@ -162,7 +163,8 @@ async function findMatches(files) {
 	return await response.json();
 }
 const setLoading = (bool) => {
-	console.log(bool);
+	if (bool) loaddingSpinner.removeAttribute("hidden");
+	else loaddingSpinner.setAttribute("hidden", true);
 };
 submitBtn.addEventListener("click", async () => {
 	setLoading(true);
