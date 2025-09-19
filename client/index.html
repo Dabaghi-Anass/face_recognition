@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="styles.css" />
+		<title>Face Detection</title>
+		<script src="script.js" defer></script>
+	</head>
+	<body>
+		<main class="container">
+			<div class="header-container">
+				<h1 class="header">Search Images By Faces</h1>
+			</div>
+			<div class="card upload-section">
+				<div class="upload-container">
+					<label class="upload-label">
+						<svg
+							class="upload-icon"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round">
+							<path
+								d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+							<polyline points="17 8 12 3 7 8"></polyline>
+							<line x1="12" y1="3" x2="12" y2="15"></line>
+						</svg>
+						<span>Select Faces Images</span>
+						<input
+							multiple
+							type="file"
+							id="image-upload"
+							accept="image/*"
+							hidden />
+					</label>
+				</div>
+
+				<!-- Image preview container -->
+				<div
+					id="image-preview-container"
+					class="image-preview-container">
+					<div class="image-preview-wrapper"></div>
+				</div>
+
+				<button disabled class="btn" id="submitBtn">search</button>
+			</div>
+			<section class="summary">
+				<div class="result_summary"></div>
+				<label class="hide_rectangles">
+					<input id="hide" type="checkbox" />
+					<p>hide rectangles</p>
+				</label>
+			</section>
+			<section class="images_container"></section>
+		</main>
+	</body>
+</html>

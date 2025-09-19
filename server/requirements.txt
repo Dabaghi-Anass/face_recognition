@@ -1,0 +1,6 @@
+dlib
+face_recognition
+fastapi
+numpy
+pillow
+uvicorn[standard]
