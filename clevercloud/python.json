@@ -1,0 +1,16 @@
+{
+  "deploy": {
+    "packages": [
+      "cmake",
+      "dlib",
+      "git+https://github.com/ageitgey/face_recognition_models",
+      "face_recognition",
+      "fastapi",
+      "numpy",
+      "pillow",
+      "uvicorn[standard]",
+      "python-multipart"
+    ]
+  },
+  "start": "uvicorn server:app --host 0.0.0.0 --port $PORT"
+}
