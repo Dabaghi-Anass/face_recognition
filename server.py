@@ -4,6 +4,7 @@ import face_recognition
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from utils import find_matches
 import uuid
 
@@ -88,3 +89,4 @@ async def get_similars(files: list[UploadFile] = File(...)):
     
     return {"matches": matches}
 
+app.mount("/", StaticFiles(directory="public", html=True), name="static")
