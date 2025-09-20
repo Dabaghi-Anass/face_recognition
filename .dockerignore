@@ -1,0 +1,12 @@
+dlib/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swm
+*.swo
+*.swp
+.dockerignore
+.git
+.gitignore
