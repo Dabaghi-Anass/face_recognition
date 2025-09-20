@@ -23,11 +23,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+DATA_DIR = "data"
 embeddings_map = {}
 locations_map = {}
-IMAGES_DIR = "images"
-ENCODINGS_FILE = "encodings_map.json"
-LOCATIONS_FILE = "locations_map.json"
+IMAGES_DIR = os.path.join(DATA_DIR, "images")
+ENCODINGS_FILE = os.path.join(DATA_DIR, "encodings_map.json")
+LOCATIONS_FILE = os.path.join(DATA_DIR, "locations_map.json")
 
 
 def load_embeddings():
@@ -42,7 +43,10 @@ def load_locations():
     if os.path.exists(LOCATIONS_FILE):
         with open(LOCATIONS_FILE, "r") as f:
             locations_map = json.load(f)
-
+def load_ctx():
+    global embeddings_map,locations_map
+    load_embeddings()
+    load_locations()
 
 @app.on_event("startup")
 def startup_event():
@@ -72,6 +76,7 @@ async def add_to_dataset(file: UploadFile = File(...)):
             json.dump(embeddings_map, f)
         with open(LOCATIONS_FILE, "w") as f:
             json.dump(locations_map, f)
+        load_ctx()
     return {"status": "ok", "faces_detected": len(face_encodings)}
 
 
@@ -79,6 +84,10 @@ async def add_to_dataset(file: UploadFile = File(...)):
 async def health():
     return {"status": "ok", "message":"server is healthy"}
 
+@app.get("/images")
+async def all_images():
+    files = os.listdir(IMAGES_DIR)
+    return {"images": files}
 @app.get("/download/{file_name}")
 async def download_image(file_name: str):
   file_path = os.path.join(IMAGES_DIR, file_name)

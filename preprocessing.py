@@ -3,9 +3,11 @@ import face_recognition
 import numpy as np
 import json
 from PIL import Image, ImageDraw
+os.makedirs("data", exist_ok=True)
+DATA_DIR = "data"
 dataset_path_encodings_map = {}
 dataset_path_locations_map = {}
-images_dir="images"
+images_dir=os.path.join(DATA_DIR,"images")
 images_paths=os.listdir(images_dir)
 
 dataset_path_encodings_map = {}
@@ -36,10 +38,10 @@ def images_to_vecs(images_paths):
   print(f"Processed {len(images_paths)} images: {faces_count} faces detected.")
 
 images_to_vecs(images_paths)
-with open("encodings_map.json", "w") as f:
+with open(os.path.join(DATA_DIR, "encodings_map.json"), "w") as f:
     json.dump(dataset_path_encodings_map, f)
-    
-with open("locations_map.json", "w") as f:
+
+with open(os.path.join(DATA_DIR, "locations_map.json"), "w") as f:
     json.dump(dataset_path_locations_map, f)
 
 print("Saved embeddings and locations to JSON!")

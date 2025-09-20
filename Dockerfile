@@ -24,6 +24,8 @@ RUN pip install -r requirements.txt
 RUN ln -s $(python -c "import site; print(site.getsitepackages()[0])")/face-recognition-models \
        $(python -c "import site; print(site.getsitepackages()[0])")/face_recognition_models
 RUN mkdir -p /app/images
+RUN mkdir -p /app/data
+VOLUME ["/app/data"]
 RUN python preprocessing.py
 
 EXPOSE 8080
