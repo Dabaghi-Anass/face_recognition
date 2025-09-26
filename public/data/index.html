@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/styles.css" />
+		<script src="script.js" defer></script>
+		<title>images</title>
+	</head>
+	<body>
+		<div id="loading" hidden>
+			<div class="spinner"></div>
+				<div class="double-bounce1"></div>
+				<div class="double-bounce2"></div>
+			</div>
+		</div>
+		<div class="header-container">
+			<h1 class="header">Liste des images</h1>
+		</div>
+		<main class="content">
+			<ul id="image-list"></ul>
+			<form class="add-image-form" id="add-image-form">
+				<h1>add image</h1>
+				<img
+					width="200px"
+					src="/avatar.png"
+					alt="selected-image"
+					class="file-viewer" />
+				<input type="file" name="file" id="upload-file" />
+				<div style="display: flex; align-items: center; gap: 1rem">
+					<input type="submit" class="btn" />
+					<button type="reset" class="btn btn-secondary">
+						clear
+					</button>
+				</div>
+			</form>
+		</main>
+
+		<script>
+			async function fetchImages() {
+				const response = await fetch("/images");
+				const data = await response.json();
+				const imageList = document.getElementById("image-list");
+				imageList.innerHTML = ""; // clear before reload
+
+				data.images.forEach((image) => {
+					const container = document.createElement("div");
+					container.style.display = "inline-block";
+					container.style.position = "relative";
+					container.style.margin = "10px";
+
+					// image
+					const img = document.createElement("img");
+					img.src = `/download/${image}`;
+					img.width = 200;
+					img.height = 200;
+
+
+					// delete button
+					
+					container.appendChild(img);
+					if(password === "anass_dabaghi"){
+						const button = document.createElement("button");
+						button.classList.add("btn-delete");
+						button.classList.add("btn");
+						button.innerText = "Delete";
+						button.style.display = "block";
+						button.style.marginTop = "5px";
+
+						button.onclick = async () => {
+							const res = await fetch(`/delete/${image}`, {
+								method: "DELETE",
+							});
+							if (res.ok) {
+								container.remove(); // remove from UI
+							} else {
+								const err = await res.json();
+								alert("Error: " + err.detail);
+							}
+						};
+						container.appendChild(button);
+				}
+					imageList.appendChild(container);
+				});
+			}
+
+			fetchImages();
+		</script>
+	</body>
+</html>

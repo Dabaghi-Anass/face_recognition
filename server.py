@@ -4,6 +4,7 @@ import json
 import uuid
 import face_recognition
 
+from fastapi import HTTPException
 from fastapi import FastAPI, UploadFile, File, Depends, Query, Header
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -115,4 +116,23 @@ async def get_similars(files: list[UploadFile] = File(...)):
     
     return {"matches": matches}
 
+@app.delete("/delete/{file_name}")
+async def delete_image(file_name: str):
+    file_path = os.path.join(IMAGES_DIR, file_name)
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+
+    try:
+        os.remove(file_path)
+        embeddings_map.pop(file_name, None)
+        locations_map.pop(file_name, None)
+
+        with open(ENCODINGS_FILE, "w") as f:
+            json.dump(embeddings_map, f)
+        with open(LOCATIONS_FILE, "w") as f:
+            json.dump(locations_map, f)
+
+        return {"status": "ok", "message": f"{file_name} deleted"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 app.mount("/", StaticFiles(directory="public", html=True), name="static")
