@@ -55,6 +55,15 @@ def startup_event():
     load_locations()
     os.makedirs(IMAGES_DIR, exist_ok=True)
 
+def normalize_face_locations(face_locations, width, height):
+    normalized = []
+    for (top, right, bottom, left) in face_locations:
+        norm_top = top / height
+        norm_right = right / width
+        norm_bottom = bottom / height
+        norm_left = left / width
+        normalized.append((norm_top, norm_right, norm_bottom, norm_left))
+    return normalized
 
 @app.post("/embed")
 async def add_to_dataset(file: UploadFile = File(...)):
@@ -69,10 +78,12 @@ async def add_to_dataset(file: UploadFile = File(...)):
         image = face_recognition.load_image_file(file_path)
         face_locations = face_recognition.face_locations(image)
         face_encodings = face_recognition.face_encodings(image, face_locations)
-
+        height, width = image.shape[:2]
+        normalized_locations = normalize_face_locations(face_locations, width, height)
+        
         if face_encodings:
             embeddings_map[unique_filename] = [enc.tolist() for enc in face_encodings]
-            locations_map[unique_filename] = face_locations
+            locations_map[unique_filename] = normalized_locations
 
             with open(ENCODINGS_FILE, "w") as f:
                 json.dump(embeddings_map, f)

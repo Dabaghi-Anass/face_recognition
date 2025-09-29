@@ -12,6 +12,7 @@ def random_color():
     l = random.randint(30, 70)        # Lightness: 30–70%
     return f"hsl({h}, {s}%, {l}%)"
 
+
 def find_matches(input_images: List[bytes], 
                 dataset_path_encodings_map: Dict, 
                 dataset_path_locations_map: Dict):
@@ -43,6 +44,7 @@ def find_matches(input_images: List[bytes],
 
                 cos_sim = np.dot(img_emb_norm, embedding_norm)
                 if cos_sim >= SIMILARITY_THRESHOLD:
+
                     similar_images[ref_image_path].append([cos_sim,dataset_path_locations_map[ref_image_path][i], color])
 
     # Filter: keep only images with number of matches == number of input images
